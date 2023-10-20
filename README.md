@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/Yuki-Sakaguchi/chrome-extensions-paiza-calendar/main/icons/extension_icon.png" alt="" />
 </p>
 
-# chrome-extensions-paiza-calendar
+# chrome-extensions-paiza-calendar（未公開）
 Paiza の日程調整完了時に Google カレンダーに予定を追加するボタンを表示する機能を提供する Chrome 拡張機能です。  
 エントリーページに以下のようなボタンが追加されます。（※個人情報は黒塗りにしてあります）  
 
