@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "paiza-calendar",
+  "version": "1.0.1",
+  "description": "Paizaの面談や面接の日程をカレンダーに追加できるようにする",
+  "permissions": ["activeTab"],
+  "icons": {
+    "16": "icons/extension_icon@16px.png",
+    "48": "icons/extension_icon@48px.png",
+    "128": "icons/extension_icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://paiza.jp/entries/*/detail"],
+      "js": ["content.js"]
+    }
+  ]
+}
