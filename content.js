@@ -1,5 +1,4 @@
 function createScheduleUrl(options) {
-  console.log(options);
   const params = new URLSearchParams({
     action: "TEMPLATE",
     ...options,
@@ -21,7 +20,6 @@ function convertDateFormat(date, addHour = 0) {
 }
 
 window.addEventListener("load", () => {
-  console.log("hello!");
   const scheduleDetail = document.querySelector(".schedule_confirm__detail");
 
   const companyName = (() => {
@@ -29,7 +27,6 @@ window.addEventListener("load", () => {
     if (!ul) return "";
     const li = ul.querySelector("li");
     if (!li) return "";
-    console.log(li);
     const text = li.textContent;
     if (text.indexOf("面接企業：") == -1) return "";
     return text.replace("面接企業：", "").trim();
