@@ -11,7 +11,10 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://paiza.jp/entries/*/detail"],
+      "matches": [
+        "https://paiza.jp/career/mypage",
+        "https://paiza.jp/entries/*/detail"
+      ],
       "js": ["content.js"]
     }
   ]

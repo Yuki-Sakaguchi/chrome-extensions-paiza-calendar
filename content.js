@@ -19,7 +19,45 @@ function convertDateFormat(date, addHour = 0) {
   return `${year}${month}${day}T${hours}${minutes}${seconds}00`;
 }
 
-window.addEventListener("load", () => {
+function copyCompanyName() {
+  const items = document.querySelectorAll(
+    ".m-mypage-entries-box__body-item-name .a-text-primary-small"
+  );
+  const textList = Array.from(items).map((item) => item.textContent);
+  navigator.clipboard
+    .writeText(textList.join(",").replaceAll(",", "\n"))
+    .then((val) => {
+      alert("コピーに成功しました");
+    })
+    .catch(() => {
+      alert("コピーに失敗しました");
+    });
+}
+
+function isDetail() {
+  return /\/entries\/?.*\/detail/.test(location.pathname);
+}
+
+function isMypage() {
+  return location.pathname === "/career/mypage";
+}
+
+function mypage() {
+  console.log("mypage");
+
+  const box = document.querySelector(".m-mypage-entries-box");
+
+  const btn = document.createElement("button");
+  btn.classList.add("a-button-primary-small");
+  btn.style.display = "block";
+  btn.style.margin = "16px 0";
+  btn.textContent = "会社名をコピーする";
+  btn.addEventListener("click", copyCompanyName);
+  box.after(btn);
+}
+
+function detail() {
+  console.log("detail");
   const scheduleDetail = document.querySelector(".schedule_confirm__detail");
 
   const companyName = (() => {
@@ -63,4 +101,9 @@ window.addEventListener("load", () => {
   btn.style.textDecoration = "underline";
   btn.textContent = "予定をGoogleカレンダーに追加する";
   scheduleDetail.appendChild(btn);
+}
+
+window.addEventListener("load", () => {
+  if (isMypage()) mypage();
+  if (isDetail()) detail();
 });
