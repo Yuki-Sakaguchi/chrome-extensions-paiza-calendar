@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "paiza-calendar",
+  "name": "paiza-support",
   "version": "1.0.1",
-  "description": "Paizaの面談や面接の日程をカレンダーに追加できるようにする",
+  "description": "Paizaを利用する上であったら少し便利な機能を提供します",
   "permissions": ["activeTab"],
   "icons": {
     "16": "icons/extension_icon@16px.png",
