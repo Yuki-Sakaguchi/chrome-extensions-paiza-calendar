@@ -19,11 +19,37 @@ function convertDateFormat(date, addHour = 0) {
   return `${year}${month}${day}T${hours}${minutes}${seconds}00`;
 }
 
+function isNumeric(str) {
+  return !isNaN(parseFloat(str)) && isFinite(str);
+}
+
 function copyCompanyName() {
   const items = document.querySelectorAll(
     ".m-mypage-entries-box__body-item-name .a-text-primary-small"
   );
-  const textList = Array.from(items).map((item) => item.textContent);
+
+  const rankingItems = Array.from(items).filter((item) => {
+    const data = item.getAttribute("data-ranking");
+    return data != null && isNumeric(data) && Number(data) > 0;
+  });
+
+  let textList;
+  if (rankingItems.length > 0) {
+    textList = Array.from(rankingItems)
+      .sort((a, b) => {
+        return (
+          Number(a.getAttribute("data-ranking")) -
+          Number(b.getAttribute("data-ranking"))
+        );
+      })
+      .map((item) => {
+        const ranking = item.getAttribute("data-ranking");
+        return `${ranking}位 ${item.textContent}`;
+      });
+  } else {
+    textList = Array.from(items).map((item) => item.textContent);
+  }
+
   navigator.clipboard
     .writeText(textList.join(",").replaceAll(",", "\n"))
     .then((val) => {
@@ -32,6 +58,44 @@ function copyCompanyName() {
     .catch(() => {
       alert("コピーに失敗しました");
     });
+}
+
+function addRanking() {
+  const items = document.querySelectorAll(
+    ".m-mypage-entries-box__body .m-mypage-entries-box__body-item .m-mypage-entries-box__body-item-name"
+  );
+
+  Array.from(items).forEach((value, index) => {
+    const title = value.querySelector(".a-text-primary-small");
+
+    const div = document.createElement("div");
+    div.style.position = "absolute";
+    div.style.left = "-40px";
+    div.style.top = 0;
+    div.style.bottom = 0;
+    div.style.display = "flex";
+    div.style.justifyContent = "center";
+    div.style.alignItems = "center";
+    div.style.transform = "translate(-100%, 0)";
+
+    const input = document.createElement("input");
+    input.type = "number";
+    input.style.width = "50px";
+    input.style.height = "30px";
+    input.style.fontSize = "16px";
+    input.style.padding = "8px 0 8px 8px";
+    input.addEventListener("change", () => {
+      title.setAttribute("data-ranking", input.value);
+    });
+    div.appendChild(input);
+
+    const span = document.createElement("span");
+    span.textContent = "位";
+    div.appendChild(span);
+
+    value.style.position = "relative";
+    value.appendChild(div);
+  });
 }
 
 function isDetail() {
@@ -47,13 +111,24 @@ function mypage() {
 
   const box = document.querySelector(".m-mypage-entries-box");
 
+  const wrap = document.createElement("div");
+  wrap.style.display = "block";
+  wrap.style.margin = "16px 0";
+
   const btn = document.createElement("button");
   btn.classList.add("a-button-primary-small");
-  btn.style.display = "block";
-  btn.style.margin = "16px 0";
   btn.textContent = "会社名をコピーする";
   btn.addEventListener("click", copyCompanyName);
-  box.after(btn);
+  wrap.appendChild(btn);
+
+  const btn2 = document.createElement("button");
+  btn2.classList.add("a-button-primary-small");
+  btn2.textContent = "順位をつける";
+  btn2.style.marginLeft = "8px";
+  btn2.addEventListener("click", addRanking);
+  wrap.appendChild(btn2);
+
+  box.after(wrap);
 }
 
 function detail() {
