@@ -134,6 +134,7 @@ function mypage() {
 function detail() {
   console.log("detail");
   const scheduleDetail = document.querySelector(".schedule_confirm__detail");
+  if (!scheduleDetail) return;
 
   const companyName = (() => {
     const ul = scheduleDetail.querySelector("ul");
