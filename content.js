@@ -44,7 +44,7 @@ function copyCompanyName() {
       })
       .map((item) => {
         const ranking = item.getAttribute("data-ranking");
-        return `${ranking}位 ${item.textContent}`;
+        return `${ranking}位：${item.textContent}`;
       });
   } else {
     textList = Array.from(items).map((item) => item.textContent);
