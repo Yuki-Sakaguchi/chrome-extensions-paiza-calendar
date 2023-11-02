@@ -107,8 +107,6 @@ function isMypage() {
 }
 
 function mypage() {
-  console.log("mypage");
-
   const box = document.querySelector(".m-mypage-entries-box");
 
   const wrap = document.createElement("div");
@@ -132,7 +130,6 @@ function mypage() {
 }
 
 function detail() {
-  console.log("detail");
   const scheduleDetail = document.querySelector(".schedule_confirm__detail");
   if (!scheduleDetail) return;
 
